@@ -1,0 +1,8 @@
+:global peerip [/interface wireguard peers get [find comment="HK"] endpoint-address];
+:global ddnsip [:resolve "fqdn.domain"];
+:if ($peerip != $ddnsip) do={
+interface wireguard peers set [find comment="HK"] endpoint-address=$ddnsip;	
+:log info "peer ip updated to $ddnsip!";
+} else {
+:log info "no peer ip address change";
+}
